@@ -1,5 +1,5 @@
 ---
-project: null   # name not chosen — EMDR dropped from positioning; see Open Questions #1
+project: "bilateral-gen"
 context_type: greenfield
 created: 2026-09-17
 updated: 2026-09-17
@@ -21,6 +21,8 @@ checkpoint:
       decision: "single user, no auth, settings on-device only"
     - topic: "naming & positioning"
       decision: "drop EMDR entirely from the product name and copy; repo name is legacy"
+    - topic: "product name"
+      decision: "bilateral-gen — describes the mechanism, carries no clinical claim"
   frs_drafted: 8
   quality_check_status: warned
 ---
@@ -196,8 +198,7 @@ scope. `mvp_weeks: 12` is a placeholder for that window, not a commitment.
 Ran 2026-09-17. `quality_check_status: warned` — the owner's decisions cover
 the load-bearing sections, but these gaps are carried forward verbatim:
 
-- **Project name** — the product name is unset after dropping EMDR. `/10x-prd`
-  cannot fill `project:` frontmatter without it.
+- ~~**Project name**~~ — resolved 2026-09-17: `bilateral-gen`.
 - **Persona moment** — no named situation that triggers reaching for the app;
   session defaults and the start screen have nothing to anchor to.
 - **Secondary success criteria** — none stated; only Primary and Guardrails.
@@ -211,20 +212,17 @@ the load-bearing sections, but these gaps are carried forward verbatim:
 
 ## Open Questions
 
-1. **What is the product called?** — Owner. Blocks PRD frontmatter `project:`.
-   EMDR was dropped from positioning, so the repo name is legacy and not a
-   fallback.
-2. **What is the moment the persona reaches for this?** — Owner. Shapes default
+1. **What is the moment the persona reaches for this?** — Owner. Shapes default
    session length and the start screen.
-3. **What is a secondary success outcome?** — Owner. Non-blocking.
-4. **What sync tolerance counts as "no drift"?** — Owner. Needs a number before
+2. **What is a secondary success outcome?** — Owner. Non-blocking.
+3. **What sync tolerance counts as "no drift"?** — Owner. Needs a number before
    it can be tested rather than asserted.
-5. **What is the performance floor on a phone?** — Owner. Frame rate, session
+4. **What is the performance floor on a phone?** — Owner. Frame rate, session
    length under battery.
-6. **Are recording/export and clinical features in or out?** — Owner. Both were
+5. **Are recording/export and clinical features in or out?** — Owner. Both were
    offered as non-goals and not selected. Note the tension: shipping
    clinical-shaped features (protocols, set counting, symptom scales) would sit
    badly against the "no therapeutic claims" guardrail and the decision to drop
    EMDR from the name. Worth resolving deliberately, not by default.
-7. **Is FR-008 (settings persistence) in the slice?** — Owner. Inferred, not
+6. **Is FR-008 (settings persistence) in the slice?** — Owner. Inferred, not
    stated.
