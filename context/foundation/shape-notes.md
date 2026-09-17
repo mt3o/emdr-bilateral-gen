@@ -25,9 +25,11 @@ checkpoint:
       decision: "bilateral-gen — describes the mechanism, carries no clinical claim"
     - topic: "clinical features"
       decision: "ruled out permanently 2026-09-17 — no protocols, set counting, symptom scales or progress tracking"
+    - topic: "diagnostics"
+      decision: "graded consent, off by default, asked once on first launch; levels Off / errors / + preset / + parameters; self-hosted GlitchTip; no timestamps or durations at any level"
     - topic: "defaults"
       decision: "four presets (Settle/Focus/Unwind/Drift) instead of one default; Settle is initial. Speed control carries plain-language descriptors"
-  frs_drafted: 12
+  frs_drafted: 16
   quality_check_status: warned
 ---
 
@@ -65,9 +67,9 @@ therapists — the owner explicitly wants to stay away from medical use.
 
 ## Access Control
 
-Single user; no auth; settings live on-device only. Follows directly from the
-owner's "nothing leaves the device" guardrail and the "no accounts / backend /
-sync" non-goal.
+Single user; no auth; settings live on-device. No account exists at any point,
+including for diagnostics — an opted-in report carries what the listener chose
+to send and nothing that identifies them.
 
 ## Success Criteria
 
@@ -88,7 +90,9 @@ sync" non-goal.
   one clock. Drift is a product failure even if everything else works.
 - **Works fully offline.** After first load, a complete session runs with no
   network. This is the concrete difference from the status quo.
-- **Nothing leaves the device.** No accounts, no analytics, no telemetry.
+- **Nothing leaves the device** unless the listener turns sharing on. Amended
+  2026-09-17: the original absolute is now conditional. Sharing is off until
+  chosen, revocable, and never a condition of using the product.
 - **No therapeutic claims.** No language in the UI or store copy claiming to
   treat trauma, PTSD, or anxiety.
 
@@ -107,6 +111,17 @@ on 2026-09-17. All are must-have for v1.
 - FR-004: Listener can see a visual element that moves in lockstep with the audio alternation. Priority: must-have
 - FR-009: The visual element is presented as a finished, designed scene rather than a bare indicator. Priority: must-have
 - FR-005: Listener can set how strongly each layer follows the alternation, per layer. Priority: must-have
+
+### Presets
+- FR-010: Listener can start from one of four named presets. Priority: must-have
+- FR-011: Listener can change any preset's parameters. Priority: must-have
+- FR-012: Alternation speed carries a plain-language descriptor. Priority: must-have
+
+### Diagnostics and consent
+- FR-013: On first launch, listener is asked once whether to share diagnostic data, sharing off until chosen. Priority: must-have
+- FR-014: Listener can choose how much to share, from a graded set of levels. Priority: must-have
+- FR-015: Listener can change or withdraw their choice at any time. Priority: must-have
+- FR-016: The consent prompt names what each level sends before the listener chooses. Priority: must-have
 
 ### Platform
 - FR-007: Listener can run a complete session with no network connection. Priority: must-have
@@ -226,6 +241,18 @@ content):
   a sample-based implementation can replace later without touching the clock or
   the panning. This is an implementation decision, so it is recorded here rather
   than in the PRD.
+- **Diagnostics destination: self-hosted GlitchTip** (decided 2026-09-17). The
+  owner already runs an instance, which is why this was chosen over a hosted
+  error service: for a product whose positioning is privacy-first, reports
+  landing on infrastructure the owner controls is the defensible answer, and a
+  third-party processor would have been hard to reconcile with the product's own
+  guardrail. Two things to settle when this is built rather than now:
+  GlitchTip records client IP addresses by default, which is an identifier the
+  consent levels never promised to send, so IP handling has to be configured
+  deliberately; and because the owner and the listeners are in the EU, the
+  consent prompt is the lawful basis, so it must name what is collected before
+  the choice is made and be as easy to withdraw as to give. Both are recorded
+  here because they are implementation obligations, not product requirements.
 - The ±25 ms alignment budget with no accumulation constrains the audio and
   animation approach jointly: both positions must be derived from one value, and
   a design that gives sound and visuals separate timebases cannot meet it.

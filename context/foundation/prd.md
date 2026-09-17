@@ -64,7 +64,9 @@ defaults are a guess until real use contradicts them. See Open Questions #1.
   alternation position; divergence is a product failure even when everything
   else works.
 - A complete session runs with no network connection, after first load.
-- No session data, settings, or usage information leaves the listener's device.
+- Nothing leaves the listener's device unless they have explicitly chosen to
+  share it. Sharing is off until chosen, every level is revocable, and the
+  product behaves identically whichever level is set.
 - No text anywhere in the product claims to treat any condition.
 
 ## User Stories
@@ -119,7 +121,24 @@ floor — and no new ones are introduced.
 
 #### Acceptance Criteria
 - Settings persist across a restart without any account or sign-in
-- Settings never leave the device
+- Settings are stored locally and are not transmitted anywhere, unless the
+  listener has turned on a sharing level that includes parameter values
+
+### US-06: Listener decides what, if anything, is shared
+
+- **Given** a listener opening the product for the first time
+- **When** the consent prompt appears
+- **Then** they see what each level sends in plain language, and nothing is
+  transmitted unless they pick a level above Off
+
+#### Acceptance Criteria
+- The initial state is Off; no network request carrying diagnostic data is made
+  before a level is chosen
+- Dismissing the prompt without answering leaves the level at Off, and the
+  product remains fully usable
+- The level can be changed or returned to Off later from settings, and lowering
+  it stops further transmission immediately
+- At every level, a session runs identically — sharing never gates a feature
 
 ### US-05: Alignment holds for a full session
 
@@ -173,6 +192,31 @@ name the sensation at that speed, not a purpose or a result. Across the range:
 intuition for what 0.4 Hz feels like, not a recommendation to seek any
 particular state.
 
+### Diagnostics and consent
+- FR-013: On first launch, listener is asked once whether to share diagnostic data, with sharing off until they choose otherwise. Priority: must-have
+- FR-014: Listener can choose how much to share, from a graded set of levels. Priority: must-have
+- FR-015: Listener can change or withdraw their choice at any time from settings. Priority: must-have
+- FR-016: The consent prompt names what each level sends, in plain language, before the listener chooses. Priority: must-have
+
+The levels, each including everything above it:
+
+| Level | What leaves the device |
+|---|---|
+| **Off** (initial) | Nothing. |
+| **Errors** | Error reports: what failed, product version, browser and OS version. |
+| **Errors + preset** | Which of the four presets was chosen. |
+| **Errors + parameters** | The parameter values in use — speed, depths, session length, fades. |
+
+No level sends session timestamps, session durations, or anything identifying
+the listener. The product asks what was set, never when or for how long someone
+listened. That boundary is deliberate: a timestamped record of when a person
+reaches for a calming tool is a different and more revealing artifact than a
+record of which preset they preferred, and the second is enough to tell whether
+the preset values are wrong.
+
+The prompt is dismissible without answering, and dismissing leaves sharing off.
+Sharing is never a condition of using the product.
+
 ### Availability
 - FR-007: Listener can run a complete session with no network connection. Priority: must-have
 - FR-008: Listener's settings persist between sessions. Priority: must-have
@@ -190,7 +234,14 @@ Presets were added on the same date.
   it began. Both positions are read from one alternation value, so there is no
   second timebase for them to drift against.
 - A complete session runs with the network disabled, after first load.
-- No session data, settings, or usage information leaves the listener's device.
+- With sharing off — the initial state — no session data, settings, or usage
+  information leaves the listener's device.
+- With sharing on, only the categories the listener selected are transmitted,
+  and nothing else. Raising a level never applies retroactively to anything
+  recorded earlier.
+- Transmission never blocks or degrades a session: a failed or slow send is
+  invisible to the listener, and a session runs identically with the network
+  unavailable.
 - No product text claims to treat, cure, or alleviate any medical or
   psychological condition.
 - Motion is sustained at 60 fps on a desktop machine and at no less than 30 fps
@@ -224,8 +275,12 @@ Single user; no auth; data lives on-device only.
 
 ## Non-Goals
 
-- **No accounts, backend, or cross-device sync.** Local-first is permanent, not
-  a deferred feature. Rules out a large class of scope.
+- **No accounts, no cross-device sync, and no backend the product depends on.**
+  Local-first is permanent. Amended 2026-09-17: diagnostic reports now have a
+  destination off the device for listeners who opt in, but it is not part of how
+  the product works — every feature functions with it unreachable, and the
+  offline guarantee is unchanged. Nothing about a listener is retained off the
+  device beyond what they chose to send.
 - **No preset sharing or community library.** Built-in presets plus local saves
   only.
 
