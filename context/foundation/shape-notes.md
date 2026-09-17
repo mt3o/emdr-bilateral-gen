@@ -12,7 +12,7 @@ checkpoint:
     - topic: "status quo replaced"
       decision: "fixed bilateral-stimulation tracks on YouTube/Spotify"
     - topic: "MVP scope"
-      decision: "thin vertical slice — one shared phase clock, per-layer panning, one bilateral source, one ambience, one visual theme, timed session with fades"
+      decision: "revised 2026-09-17 by the scope round — every layer kept, nothing deferred, visual fully themed; no longer a thin slice. Original slice wording in the Scope round section"
     - topic: "delivery window"
       decision: "3+ months, hobby pace, no external deadline"
     - topic: "platform"
@@ -23,7 +23,7 @@ checkpoint:
       decision: "drop EMDR entirely from the product name and copy; repo name is legacy"
     - topic: "product name"
       decision: "bilateral-gen — describes the mechanism, carries no clinical claim"
-  frs_drafted: 8
+  frs_drafted: 9
   quality_check_status: warned
 ---
 
@@ -56,7 +56,7 @@ therapists — the owner explicitly wants to stay away from medical use.
 
 > Gap: the specific *moment* the persona reaches for this (at a desk before
 > deep work? winding down at night? mid-anxiety?) was not pinned down. See
-> Open Questions #2 — it shapes session length defaults and the start screen.
+> Open Questions #1 — it shapes session length defaults and the start screen.
 
 ## Access Control
 
@@ -74,11 +74,12 @@ sync" non-goal.
   stimulation follows continuously, without an audible or visible jump.
 
 ### Secondary
-> Not captured. The owner did not name a secondary outcome. See Open Questions #3.
+> Not captured. The owner did not name a secondary outcome. See Open Questions #2.
 
 ### Guardrails
-- **Audio–visual sync never drifts.** The visual element and the audio pan read
-  from one clock. Drift is a product failure even if everything else works.
+- **Audio–visual sync never drifts.** Never more than ±25 ms apart, with no
+  accumulation over a session. The visual element and the audio pan read from
+  one clock. Drift is a product failure even if everything else works.
 - **Works fully offline.** After first load, a complete session runs with no
   network. This is the concrete difference from the status quo.
 - **Nothing leaves the device.** No accounts, no analytics, no telemetry.
@@ -87,8 +88,8 @@ sync" non-goal.
 
 ## Functional Requirements
 
-Derived from the MVP slice the owner selected. All are must-have for the thin
-slice unless marked otherwise.
+Derived from the MVP slice the owner selected, then revised by the scope round
+on 2026-09-17. All are must-have for v1.
 
 ### Session
 - FR-001: Listener can start and stop a timed session. Priority: must-have
@@ -98,36 +99,62 @@ slice unless marked otherwise.
 - FR-002: Listener can hear a bilateral sound source alternate between the left and right channels. Priority: must-have
 - FR-003: Listener can hear an ambience layer underneath the bilateral source. Priority: must-have
 - FR-004: Listener can see a visual element that moves in lockstep with the audio alternation. Priority: must-have
+- FR-009: The visual element is presented as a finished, designed scene rather than a bare indicator. Priority: must-have
 - FR-005: Listener can set how strongly each layer follows the alternation, per layer. Priority: must-have
 
 ### Platform
 - FR-007: Listener can run a complete session with no network connection. Priority: must-have
-- FR-008: Listener's settings persist on-device between sessions. Priority: nice-to-have
+- FR-008: Listener's settings persist on-device between sessions. Priority: must-have
 
-> Note: FR-008 is inferred from the on-device/no-backend decisions rather than
-> stated outright. Confirm or drop it before the PRD locks.
+> FR-008 was inferred during shaping and promoted to must-have by the scope
+> round on 2026-09-17.
 
-## Socratic challenges — UNANSWERED
+## Scope round — 2026-09-17
 
-The Socratic round (one counter-argument per FR) was not run; the owner asked
-for shape notes to be produced from the conversation rather than a further
-interview. The challenges below are recorded open so they can be answered
-before `/10x-prd` locks scope. **No resolutions have been invented.**
+The challenges below were put to the owner after the PRD was first written.
+Outcome: **nothing was deferred.** The ambience layer, per-layer depth controls,
+fades and settings persistence all stay in v1, and the visual ships as a
+finished themed scene rather than a bare indicator. The only simplification
+taken was synthesizing the bilateral source instead of using recorded audio.
+
+This means the first version is no longer the "thin vertical slice" recorded
+below. It is a complete small product. That is a defensible choice against a
+3-month window, but it is a different bet than the one made during shaping, and
+the original slice wording is kept below as the record of what changed.
+
+Settled by the round:
+- Alignment budget: ±25 ms, no accumulation over a session.
+- Bilateral source: synthesis for v1, behind a seam samples can replace.
+- Visual: in v1, fully themed.
+- Deferred: nothing.
+
+## Socratic challenges — RAISED 2026-09-17, mostly answered by the scope round
+
+Each challenge and how it landed:
 
 - FR-002 — If alternation is the whole product, is a *sample-based* source
   needed at all for the slice, or would pure synthesis prove the same thing at
   a fraction of the loading and asset work?
+  > **Answered:** synthesis for v1, behind a seam samples can replace later.
 - FR-003 — Does the ambience layer earn its place in the *thinnest* slice, or
   is it the first thing that could be cut to reach a running session sooner?
+  > **Answered:** stays in v1.
 - FR-004 — Is the visual genuinely part of the stimulation, or is it a comfort
   feature that could ship after the audio is proven?
+  > **Answered:** stays in v1, and fully themed. The sync guardrail cannot be
+  > tested without a visual to test it against.
 - FR-005 — Per-layer depth is three controls. Would one global depth control
   prove the concept and defer the rest?
+  > **Answered:** stays in v1.
 - FR-006 — Fades are polish. What breaks if the first version starts and stops
   abruptly?
+  > **Answered:** stays in v1.
 - FR-007 — Offline is a guardrail. Does it need to hold in the *slice*, or only
   before anyone else uses it?
+  > **Still open.** Not put to the owner. Offline remains a v1 guardrail by
+  > default.
 - FR-008 — If the slice has one preset, is there anything worth persisting yet?
+  > **Answered:** stays in v1; promoted from nice-to-have to must-have.
 
 ## Business Logic
 
@@ -186,6 +213,16 @@ content):
 - The clock, the audio panning, and the visual all have to read from a single
   shared time source — a hard requirement on whatever audio/animation approach
   is chosen.
+- **Bilateral source: synthesis first, samples behind a seam** (decided
+  2026-09-17). v1 synthesizes the bilateral source rather than playing recorded
+  audio, so there is no asset pipeline, no loop-point preparation and no loading
+  step before the clock can be proven. The source sits behind an interface that
+  a sample-based implementation can replace later without touching the clock or
+  the panning. This is an implementation decision, so it is recorded here rather
+  than in the PRD.
+- The ±25 ms alignment budget with no accumulation constrains the audio and
+  animation approach jointly: both positions must be derived from one value, and
+  a design that gives sound and visuals separate timebases cannot meet it.
 
 ## Timeline acknowledgment
 
@@ -199,13 +236,14 @@ Ran 2026-09-17. `quality_check_status: warned` — the owner's decisions cover
 the load-bearing sections, but these gaps are carried forward verbatim:
 
 - ~~**Project name**~~ — resolved 2026-09-17: `bilateral-gen`.
+- ~~**Socratic round not run**~~ — resolved 2026-09-17 by the scope round; six
+  of seven challenges answered, nothing deferred.
+- ~~**Sync tolerance unset**~~ — resolved 2026-09-17: ±25 ms, no accumulation.
 - **Persona moment** — no named situation that triggers reaching for the app;
   session defaults and the start screen have nothing to anchor to.
 - **Secondary success criteria** — none stated; only Primary and Guardrails.
-- **Socratic round not run** — no FR has been stress-tested; the slice may
-  still be thicker than it needs to be.
 - **No performance floor** — a continuous audio-plus-animation session with no
-  stated frame-rate or battery target.
+  stated frame-rate or battery target, now running every layer at once.
 - **Recording/export and clinical features undecided** — neither ruled in nor
   out, and "no clinical features" sits in tension with the "no therapeutic
   claims" guardrail and dropping EMDR from the name.
@@ -215,14 +253,14 @@ the load-bearing sections, but these gaps are carried forward verbatim:
 1. **What is the moment the persona reaches for this?** — Owner. Shapes default
    session length and the start screen.
 2. **What is a secondary success outcome?** — Owner. Non-blocking.
-3. **What sync tolerance counts as "no drift"?** — Owner. Needs a number before
-   it can be tested rather than asserted.
-4. **What is the performance floor on a phone?** — Owner. Frame rate, session
-   length under battery.
-5. **Are recording/export and clinical features in or out?** — Owner. Both were
+3. **What is the performance floor on a phone?** — Owner. Frame rate, session
+   length under battery. Sharper after the scope round kept every layer and
+   added a themed scene.
+4. **Are recording/export and clinical features in or out?** — Owner. Both were
    offered as non-goals and not selected. Note the tension: shipping
    clinical-shaped features (protocols, set counting, symptom scales) would sit
    badly against the "no therapeutic claims" guardrail and the decision to drop
    EMDR from the name. Worth resolving deliberately, not by default.
-6. **Is FR-008 (settings persistence) in the slice?** — Owner. Inferred, not
-   stated.
+5. **Does the offline guarantee have to hold in v1?** — Owner. The only
+   challenge from the scope round not put to them; offline stays a v1 guardrail
+   by default.

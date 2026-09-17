@@ -53,8 +53,10 @@ therapists — the product deliberately stays clear of medical use.
 # TODO: secondary success outcome — see Open Questions #2
 
 ### Guardrails
-- Sound and image never drift apart. Both derive from one alternation position;
-  divergence is a product failure even when everything else works.
+- Sound and image never drift apart: never more than 25 ms out of alignment, and
+  no accumulation of offset over the length of a session. Both derive from one
+  alternation position; divergence is a product failure even when everything
+  else works.
 - A complete session runs with no network connection, after first load.
 - No session data, settings, or usage information leaves the listener's device.
 - No text anywhere in the product claims to treat any condition.
@@ -77,24 +79,24 @@ testable stories.
 - FR-002: Listener can hear a bilateral sound source alternate between the left and right channels. Priority: must-have
 - FR-003: Listener can hear an ambience layer underneath the bilateral source. Priority: must-have
 - FR-004: Listener can see a visual element that moves in lockstep with the audio alternation. Priority: must-have
+- FR-009: The visual element is presented as a finished, designed scene rather than a bare indicator. Priority: must-have
 - FR-005: Listener can set how strongly each layer follows the alternation, per layer. Priority: must-have
 
 ### Availability
 - FR-007: Listener can run a complete session with no network connection. Priority: must-have
-- FR-008: Listener's settings persist between sessions. Priority: nice-to-have
+- FR-008: Listener's settings persist between sessions. Priority: must-have
 
-FR-008 was inferred from the local-only decisions rather than stated outright —
-see Open Questions #6.
-
-No Socratic round was run against these requirements during shaping; the
-unanswered challenges are carried in `shape-notes.md` and mirrored in Open
-Questions #7.
+Every requirement above is in the first version. The scope round on 2026-09-17
+confirmed the ambience layer, per-layer depth controls, fades, settings
+persistence and a finished visual scene all stay in, and deferred nothing.
 
 ## Non-Functional Requirements
 
-- Sound position and visual position derive from a single alternation value,
-  with no divergence a listener can perceive across a full session.
-  # TODO: numeric tolerance — see Open Questions #4
+- Sound position and visual position never diverge by more than 25 ms, measured
+  at any instant during a session.
+- Divergence does not accumulate: a 20-minute session ends as tightly aligned as
+  it began. Both positions are read from one alternation value, so there is no
+  second timebase for them to drift against.
 - A complete session runs with the network disabled, after first load.
 - No session data, settings, or usage information leaves the listener's device.
 - No product text claims to treat, cure, or alleviate any medical or
@@ -132,7 +134,7 @@ Single user; no auth; data lives on-device only.
   only.
 
 Session recording/export and clinical features were both considered and left
-undecided rather than ruled out — see Open Questions #8. They are not non-goals
+undecided rather than ruled out — see Open Questions #5. They are not non-goals
 and should not be treated as such.
 
 ## Open Questions
@@ -143,20 +145,13 @@ and should not be treated as such.
 3. **What are the user stories?** — Owner. No Given/When/Then was captured, so
    nothing in this PRD is stated as testable acceptance criteria. Block: yes for
    implementation planning; the Primary criteria are prose, not tests.
-4. **What sync tolerance counts as "no perceptible divergence"?** — Owner. Needs
-   a number before the top guardrail can be tested rather than asserted.
-   Block: yes for verifying the product's central guarantee.
-5. **What is the performance floor?** — Owner. A continuous audio-and-motion
+4. **What is the performance floor?** — Owner. A continuous audio-and-motion
    session on a handheld device, with no stated frame-rate, thermal, or battery
-   target. Block: no, but it constrains the visual scope.
-6. **Is settings persistence (FR-008) in the first version?** — Owner. Inferred
-   from the local-only decisions, not stated. Block: no.
-7. **Have the requirements been stress-tested?** — Owner. The Socratic round was
-   not run; per-requirement counter-arguments sit unanswered in
-   `shape-notes.md`. Several question whether the first version needs a
-   sample-based source, an ambience layer, and per-layer depth controls at all.
-   Block: no, but resolving them may shrink scope materially.
-8. **Are session recording/export and clinical features in or out?** — Owner.
+   target. Now more pressing than when first raised: the scope round kept every
+   layer and added a finished visual scene, so there is more running at once
+   than the original slice assumed. Block: no, but it constrains the visual
+   scope.
+5. **Are session recording/export and clinical features in or out?** — Owner.
    Both were offered as non-goals and neither was selected, so both remain in
    scope by default. Note the tension: clinical-shaped features (protocols, set
    counting, symptom scales) would sit badly against the "no treatment claims"
