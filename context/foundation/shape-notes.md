@@ -23,7 +23,11 @@ checkpoint:
       decision: "drop EMDR entirely from the product name and copy; repo name is legacy"
     - topic: "product name"
       decision: "bilateral-gen — describes the mechanism, carries no clinical claim"
-  frs_drafted: 9
+    - topic: "clinical features"
+      decision: "ruled out permanently 2026-09-17 — no protocols, set counting, symptom scales or progress tracking"
+    - topic: "defaults"
+      decision: "four presets (Settle/Focus/Unwind/Drift) instead of one default; Settle is initial. Speed control carries plain-language descriptors"
+  frs_drafted: 12
   quality_check_status: warned
 ---
 
@@ -244,21 +248,24 @@ the load-bearing sections, but these gaps are carried forward verbatim:
 - ~~**No performance floor**~~ — resolved 2026-09-17: 60 fps desktop, 30 fps
   floor on handheld, clean audio throughout, audio winning where the two
   compete.
-- **Session defaults unanchored** — with no dominant moment of use, the shipped
-  session length and fade times are a guess until real use corrects them.
-- **Recording/export and clinical features undecided** — put to the owner again
-  on 2026-09-17 and deliberately left open. The tension is unchanged and now
-  knowingly carried: clinical-shaped features would sit against the product's
-  own no-treatment-claims guardrail and the decision to drop clinical framing
-  from the name.
+- **Preset values unanchored** — four presets now carry the defaults, but with
+  no dominant moment of use their numbers are still first guesses until real
+  use corrects them.
+- ~~**Clinical features undecided**~~ — resolved 2026-09-17: ruled out
+  permanently. Parameters are exposed directly with plain-language descriptors
+  instead; the product prescribes nothing and records nothing about the
+  listener's state. This closes the tension with the no-treatment-claims
+  guardrail.
+- **Recording/export undecided** — still open; it was not part of the clinical
+  decision.
 
 ## Open Questions
 
-1. **What should the default session length and fade times be?** — Owner, or
-   observation. Downstream of there being no dominant moment of use: the
-   defaults have nothing in particular to be tuned for. Resolvable by using the
-   product rather than by deciding now.
-2. **Are recording/export and clinical features in or out?** — Owner. Both were
+1. **Are the preset values right?** — Owner, by use. Four presets replace the
+   single arbitrary default, but their numbers are first guesses made without a
+   dominant moment of use to tune against. Resolvable by running sessions.
+2. **Is recording/export in or out?** — Owner. Clinical features were ruled out
+   on 2026-09-17; recording was not part of that decision. Previously
    offered as non-goals and not selected. Note the tension: shipping
    clinical-shaped features (protocols, set counting, symptom scales) would sit
    badly against the "no therapeutic claims" guardrail and the decision to drop
