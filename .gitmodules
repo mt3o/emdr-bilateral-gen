@@ -1,0 +1,3 @@
+[submodule ".claude/10x-workflow-3"]
+	path = .claude/10x-workflow-3
+	url = https://github.com/mt3o/10x-workflow-3.git

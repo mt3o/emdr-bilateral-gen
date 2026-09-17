@@ -6,17 +6,20 @@ yet. Update this file with real architecture/conventions once code lands.
 
 ## Workflow skills
 
-This repo ships local Claude Code skills under `.claude/skills/`, all
-prefixed `10x-`, to speed up AI-assisted development:
+Claude Code skills come from the `10x-workflow-3` pack
+(https://github.com/mt3o/10x-workflow-3), vendored as a git submodule at
+`.claude/10x-workflow-3`. `.claude/skills` is a symlink into
+`.claude/10x-workflow-3/.claude/skills`, so the pack's skills (project
+framing, planning, implementation, review, e2e, tech-stack selection,
+etc. — all prefixed `10x-`) are picked up directly.
 
-- `10x-tdd` — red/green/refactor, test-first workflow
-- `10x-code-review` — review a diff/PR for correctness bugs
-- `10x-simplify` — review a diff for reuse/simplification/efficiency
-- `10x-git-guardrails` — sets up a hook blocking destructive git commands
-- `10x-session-start-hook` — helps you add a SessionStart hook once a
-  package manager/test runner exists, so Claude Code on the web can run
-  tests and linters automatically
+After cloning this repo, run `git submodule update --init` to fetch the
+skills pack.
 
-A `PreToolUse` hook from `10x-git-guardrails` is already wired up in
-`.claude/settings.json`, blocking `git push`, `git reset --hard`,
-`git clean -f[d]`, `git branch -D`, and `git checkout .` / `git restore .`.
+To update the pack: `cd .claude/10x-workflow-3 && git pull origin main`,
+then commit the updated submodule pointer.
+
+A `PreToolUse` hook (originally set up via the pack's git-guardrails
+guidance) is wired up in `.claude/settings.json`, blocking `git push`,
+`git reset --hard`, `git clean -f[d]`, `git branch -D`, and
+`git checkout .` / `git restore .`.
