@@ -38,7 +38,11 @@ with no connection and nothing to interrupt it.
 or relaxation. Not a clinical audience, not people in treatment, and not
 therapists — the product deliberately stays clear of medical use.
 
-# TODO: the moment the persona reaches for the product — see Open Questions #1
+There is no single dominant moment. Focus, evening wind-down and general
+restlessness all count, and none leads. This is recorded as the owner's answer
+rather than a gap — but it has a consequence worth stating: session-length and
+fade defaults have no particular situation to be tuned for, so the shipped
+defaults are a guess until real use contradicts them. See Open Questions #1.
 
 ## Success Criteria
 
@@ -50,7 +54,9 @@ therapists — the product deliberately stays clear of medical use.
   stimulation follows continuously, with no audible or visible jump.
 
 ### Secondary
-# TODO: secondary success outcome — see Open Questions #2
+- The owner returns to it unprompted — reaching for a session without having
+  decided to test the product. Not sufficient on its own, but the signal least
+  vulnerable to self-deception.
 
 ### Guardrails
 - Sound and image never drift apart: never more than 25 ms out of alignment, and
@@ -63,11 +69,69 @@ therapists — the product deliberately stays clear of medical use.
 
 ## User Stories
 
-# TODO: user stories — see Open Questions #3
+Derived from the requirements below and the success criteria above. Numbers used
+here are the ones already settled — the alignment budget and the frame-rate
+floor — and no new ones are introduced.
 
-No Given/When/Then acceptance criteria were captured during shaping. The Primary
-success criteria above describe the intended flow but have not been written as
-testable stories.
+### US-01: Listener runs a complete session
+
+- **Given** a listener who has opened the product and chosen a session length
+- **When** they start the session
+- **Then** the sound fades in, a bilateral source alternates left↔right beneath
+  an ambience layer, a visual scene tracks the same alternation, and the session
+  fades out and ends on the timer
+
+#### Acceptance Criteria
+- The alternating source is audible in both ears across a full cycle, never
+  silent in one ear for a whole cycle
+- Fade-in and fade-out are audible ramps, not steps
+- The session ends on its own at the chosen length without intervention
+- Nothing in the flow requires a network connection
+
+### US-02: Listener changes the alternation while it runs
+
+- **Given** a session already running
+- **When** the listener changes the alternation speed, depth or shape
+- **Then** the stimulation follows the new setting continuously, with no jump in
+  sound position or visual position
+
+#### Acceptance Criteria
+- No audible discontinuity at the moment of change
+- The visual element does not teleport; its motion stays continuous
+- Sound and visual remain within 25 ms of each other across the change
+
+### US-03: Listener sets how much each layer moves
+
+- **Given** a listener on the controls
+- **When** they change the depth for one layer
+- **Then** only that layer's movement changes; the others keep their own depth
+
+#### Acceptance Criteria
+- Depth is settable per layer, not only globally
+- Setting one layer's depth to zero leaves that layer audible but stationary
+- Other layers are unaffected by the change
+
+### US-04: Listener's settings survive a restart
+
+- **Given** a listener who has adjusted settings and closed the product
+- **When** they open it again
+- **Then** their previous settings are still in place
+
+#### Acceptance Criteria
+- Settings persist across a restart without any account or sign-in
+- Settings never leave the device
+
+### US-05: Alignment holds for a full session
+
+- **Given** a session running its full length
+- **When** sound position and visual position are sampled throughout
+- **Then** they never differ by more than 25 ms, and the difference at the end
+  is no larger than at the start
+
+#### Acceptance Criteria
+- Maximum observed divergence ≤ 25 ms at any sample
+- Divergence shows no upward trend across the session
+- Holds at a sustained 30 fps on a handheld device and 60 fps on a desktop
 
 ## Functional Requirements
 
@@ -101,7 +165,11 @@ persistence and a finished visual scene all stay in, and deferred nothing.
 - No session data, settings, or usage information leaves the listener's device.
 - No product text claims to treat, cure, or alleviate any medical or
   psychological condition.
-# TODO: performance floor for a continuous audio-and-motion session — see Open Questions #5
+- Motion is sustained at 60 fps on a desktop machine and at no less than 30 fps
+  on a handheld device, for the length of a full session.
+- Audio plays without dropout, click or glitch for the length of a full session.
+  Where the two compete, audio continuity is the one that holds: a dropped frame
+  is recoverable, an audible glitch ends the session's usefulness.
 
 ## Business Logic
 
@@ -134,24 +202,17 @@ Single user; no auth; data lives on-device only.
   only.
 
 Session recording/export and clinical features were both considered and left
-undecided rather than ruled out — see Open Questions #5. They are not non-goals
+undecided rather than ruled out — see Open Questions #2. They are not non-goals
 and should not be treated as such.
 
 ## Open Questions
 
-1. **What is the moment the persona reaches for the product?** — Owner. Shapes
-   default session length and the opening screen. Block: no.
-2. **What is a secondary success outcome?** — Owner. Block: no.
-3. **What are the user stories?** — Owner. No Given/When/Then was captured, so
-   nothing in this PRD is stated as testable acceptance criteria. Block: yes for
-   implementation planning; the Primary criteria are prose, not tests.
-4. **What is the performance floor?** — Owner. A continuous audio-and-motion
-   session on a handheld device, with no stated frame-rate, thermal, or battery
-   target. Now more pressing than when first raised: the scope round kept every
-   layer and added a finished visual scene, so there is more running at once
-   than the original slice assumed. Block: no, but it constrains the visual
-   scope.
-5. **Are session recording/export and clinical features in or out?** — Owner.
+1. **What should the default session length and fade times be?** — Owner, or
+   observation. Follows from there being no dominant moment of use: the defaults
+   have no particular situation to be tuned for, so the first values shipped are
+   a guess. Resolvable by using the product rather than by deciding now.
+   Block: no.
+2. **Are session recording/export and clinical features in or out?** — Owner.
    Both were offered as non-goals and neither was selected, so both remain in
    scope by default. Note the tension: clinical-shaped features (protocols, set
    counting, symptom scales) would sit badly against the "no treatment claims"

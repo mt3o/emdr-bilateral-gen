@@ -54,9 +54,10 @@ whole thing runs offline with nothing to interrupt it.
 relaxation. Not a clinical audience, not people in treatment, and not
 therapists — the owner explicitly wants to stay away from medical use.
 
-> Gap: the specific *moment* the persona reaches for this (at a desk before
-> deep work? winding down at night? mid-anxiety?) was not pinned down. See
-> Open Questions #1 — it shapes session length defaults and the start screen.
+> Answered 2026-09-17: there is no single dominant moment — focus, evening
+> wind-down and general restlessness all count, none leads. The consequence is
+> that session-length and fade defaults have nothing specific to be tuned for,
+> so the first values shipped are a guess. See Open Questions #1.
 
 ## Access Control
 
@@ -74,7 +75,8 @@ sync" non-goal.
   stimulation follows continuously, without an audible or visible jump.
 
 ### Secondary
-> Not captured. The owner did not name a secondary outcome. See Open Questions #2.
+- The owner returns to it unprompted, without having decided to test it
+  (answered 2026-09-17).
 
 ### Guardrails
 - **Audio–visual sync never drifts.** Never more than ±25 ms apart, with no
@@ -239,28 +241,28 @@ the load-bearing sections, but these gaps are carried forward verbatim:
 - ~~**Socratic round not run**~~ — resolved 2026-09-17 by the scope round; six
   of seven challenges answered, nothing deferred.
 - ~~**Sync tolerance unset**~~ — resolved 2026-09-17: ±25 ms, no accumulation.
-- **Persona moment** — no named situation that triggers reaching for the app;
-  session defaults and the start screen have nothing to anchor to.
-- **Secondary success criteria** — none stated; only Primary and Guardrails.
-- **No performance floor** — a continuous audio-plus-animation session with no
-  stated frame-rate or battery target, now running every layer at once.
-- **Recording/export and clinical features undecided** — neither ruled in nor
-  out, and "no clinical features" sits in tension with the "no therapeutic
-  claims" guardrail and dropping EMDR from the name.
+- ~~**No performance floor**~~ — resolved 2026-09-17: 60 fps desktop, 30 fps
+  floor on handheld, clean audio throughout, audio winning where the two
+  compete.
+- **Session defaults unanchored** — with no dominant moment of use, the shipped
+  session length and fade times are a guess until real use corrects them.
+- **Recording/export and clinical features undecided** — put to the owner again
+  on 2026-09-17 and deliberately left open. The tension is unchanged and now
+  knowingly carried: clinical-shaped features would sit against the product's
+  own no-treatment-claims guardrail and the decision to drop clinical framing
+  from the name.
 
 ## Open Questions
 
-1. **What is the moment the persona reaches for this?** — Owner. Shapes default
-   session length and the start screen.
-2. **What is a secondary success outcome?** — Owner. Non-blocking.
-3. **What is the performance floor on a phone?** — Owner. Frame rate, session
-   length under battery. Sharper after the scope round kept every layer and
-   added a themed scene.
-4. **Are recording/export and clinical features in or out?** — Owner. Both were
+1. **What should the default session length and fade times be?** — Owner, or
+   observation. Downstream of there being no dominant moment of use: the
+   defaults have nothing in particular to be tuned for. Resolvable by using the
+   product rather than by deciding now.
+2. **Are recording/export and clinical features in or out?** — Owner. Both were
    offered as non-goals and not selected. Note the tension: shipping
    clinical-shaped features (protocols, set counting, symptom scales) would sit
    badly against the "no therapeutic claims" guardrail and the decision to drop
    EMDR from the name. Worth resolving deliberately, not by default.
-5. **Does the offline guarantee have to hold in v1?** — Owner. The only
+3. **Does the offline guarantee have to hold in v1?** — Owner. The only
    challenge from the scope round not put to them; offline stays a v1 guardrail
    by default.
