@@ -26,10 +26,10 @@ checkpoint:
     - topic: "clinical features"
       decision: "ruled out permanently 2026-09-17 — no protocols, set counting, symptom scales or progress tracking"
     - topic: "diagnostics"
-      decision: "graded consent, off by default, asked once on first launch; levels Off / errors / + preset / + parameters; self-hosted GlitchTip; no timestamps or durations at any level"
+      decision: "graded consent, off by default, asked once on first launch; levels Off / errors / + preset / + parameters; self-hosted GlitchTip; no timestamps or durations at any level; each level inspectable with the listener's own real values before choosing and from settings afterwards"
     - topic: "defaults"
       decision: "four presets (Settle/Focus/Unwind/Drift) instead of one default; Settle is initial. Speed control carries plain-language descriptors"
-  frs_drafted: 16
+  frs_drafted: 17
   quality_check_status: warned
 ---
 
@@ -121,7 +121,8 @@ on 2026-09-17. All are must-have for v1.
 - FR-013: On first launch, listener is asked once whether to share diagnostic data, sharing off until chosen. Priority: must-have
 - FR-014: Listener can choose how much to share, from a graded set of levels. Priority: must-have
 - FR-015: Listener can change or withdraw their choice at any time. Priority: must-have
-- FR-016: The consent prompt names what each level sends before the listener chooses. Priority: must-have
+- FR-016: The consent prompt shows the actual content each level would send, filled with the listener's own values. Priority: must-have
+- FR-017: Listener can inspect that same view later from settings, without changing their level. Priority: must-have
 
 ### Platform
 - FR-007: Listener can run a complete session with no network connection. Priority: must-have

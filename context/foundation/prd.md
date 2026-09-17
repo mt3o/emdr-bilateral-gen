@@ -139,6 +139,12 @@ floor — and no new ones are introduced.
 - The level can be changed or returned to Off later from settings, and lowering
   it stops further transmission immediately
 - At every level, a session runs identically — sharing never gates a feature
+- Each level can be inspected before choosing, showing the listener's own
+  current values rather than a description or placeholder data
+- The error-report example is labelled as representative, not as a literal
+  record of something that has happened
+- The same view opens from settings afterwards, and opening it does not alter
+  the current level
 
 ### US-05: Alignment holds for a full session
 
@@ -196,7 +202,8 @@ particular state.
 - FR-013: On first launch, listener is asked once whether to share diagnostic data, with sharing off until they choose otherwise. Priority: must-have
 - FR-014: Listener can choose how much to share, from a graded set of levels. Priority: must-have
 - FR-015: Listener can change or withdraw their choice at any time from settings. Priority: must-have
-- FR-016: The consent prompt names what each level sends, in plain language, before the listener chooses. Priority: must-have
+- FR-016: The consent prompt shows the actual content each level would send, filled in with the listener's own values, before they choose. Priority: must-have
+- FR-017: Listener can inspect that same view later from settings, at any time, without changing their level. Priority: must-have
 
 The levels, each including everything above it:
 
@@ -216,6 +223,24 @@ the preset values are wrong.
 
 The prompt is dismissible without answering, and dismissing leaves sharing off.
 Sharing is never a condition of using the product.
+
+**What "shows" means (FR-016, FR-017).** Not a description of the categories —
+the content itself, populated with the listener's real values as they stand at
+that moment: their actual browser and version string, the preset they currently
+have selected, the parameter values currently set. A listener deciding whether
+to share their parameters can read the exact numbers that would leave the
+device, not a promise about them.
+
+One part cannot be shown exactly, and the product says so rather than implying
+otherwise: an error report describes a failure that has not happened yet, so its
+detail is unknowable in advance. What can be shown is the shape of one — a
+representative example — alongside the environment values that are real and
+already known. The distinction is stated in the view, so nothing claims a
+precision it does not have.
+
+The same view is reachable from settings afterwards, because consent given once
+at first launch is worth little if the listener can never check what they agreed
+to. Opening it changes nothing on its own.
 
 ### Availability
 - FR-007: Listener can run a complete session with no network connection. Priority: must-have
