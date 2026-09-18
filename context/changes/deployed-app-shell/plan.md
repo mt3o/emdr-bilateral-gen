@@ -322,14 +322,14 @@ Not applicable. Nothing exists to migrate.
 
 #### Automated
 
-- [ ] 1.1 Dependencies install cleanly (`npm ci` in `app/`)
-- [ ] 1.2 Type checking passes (`npm run typecheck`)
-- [ ] 1.3 Linting passes (`npm run lint`)
-- [ ] 1.4 Formatting is clean (`npm run format:check`)
-- [ ] 1.5 Tests pass (`npm run test`)
-- [ ] 1.6 Production build succeeds (`npm run build`)
-- [ ] 1.7 Submodule and symlink intact
-- [ ] 1.8 No unintended root-level changes
+- [x] 1.1 Dependencies install cleanly (`npm ci` in `app/`)
+- [x] 1.2 Type checking passes (`npm run typecheck`)
+- [x] 1.3 Linting passes (`npm run lint`)
+- [x] 1.4 Formatting is clean (`npm run format:check`)
+- [x] 1.5 Tests pass (`npm run test`)
+- [x] 1.6 Production build succeeds (`npm run build`)
+- [x] 1.7 Submodule and symlink intact
+- [x] 1.8 No unintended root-level changes
 
 #### Manual
 
