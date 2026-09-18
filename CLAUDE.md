@@ -20,6 +20,16 @@ To update the pack: `cd .claude/10x-workflow-3 && git pull origin main`,
 then commit the updated submodule pointer.
 
 A `PreToolUse` hook (originally set up via the pack's git-guardrails
-guidance) is wired up in `.claude/settings.json`, blocking `git push`,
-`git reset --hard`, `git clean -f[d]`, `git branch -D`, and
-`git checkout .` / `git restore .`.
+guidance) is wired up in `.claude/settings.json`, blocking force-pushes
+(`push --force`, `push --force-with-lease`, `push -f`), `git reset --hard`,
+`git clean -f[d]`, `git branch -D`, and `git checkout .` / `git restore .`.
+
+Ordinary `git push` is allowed. It was blocked until 2026-09-17, which
+deadlocked against the stop hook that requires branches to be pushed —
+every turn ended with an unpushable commit. History-destroying pushes stay
+blocked; only the blanket ban came off.
+
+Patterns are substring-matched with `grep -qE` against the whole command,
+so a command merely *containing* a blocked phrase is refused even when it
+is not running it — editing this hook's own pattern list from Bash trips
+it. Use the Edit tool for that.
