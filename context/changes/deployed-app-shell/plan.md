@@ -333,8 +333,8 @@ Not applicable. Nothing exists to migrate.
 
 #### Manual
 
-- [x] 1.9 `npm run dev` serves the page and hot reload works
-- [x] 1.10 Built output loads when served locally
+- [x] 1.9 `npm run dev` serves the page and hot reload works — 6c9f264
+- [x] 1.10 Built output loads when served locally — 6c9f264
 
 ### Phase 2: Continuous integration and a published URL
 
