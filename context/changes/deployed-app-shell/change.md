@@ -1,9 +1,9 @@
 ---
 id: deployed-app-shell
 title: A runnable shell, reachable over a secure connection
-status: planned
+status: implementing
 created: 2026-09-17
-updated: 2026-09-17
+updated: 2026-09-18
 roadmap_id: F-01
 prd_refs: [FR-007]
 ---

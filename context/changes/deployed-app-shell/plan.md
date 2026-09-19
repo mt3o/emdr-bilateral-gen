@@ -322,19 +322,19 @@ Not applicable. Nothing exists to migrate.
 
 #### Automated
 
-- [ ] 1.1 Dependencies install cleanly (`npm ci` in `app/`)
-- [ ] 1.2 Type checking passes (`npm run typecheck`)
-- [ ] 1.3 Linting passes (`npm run lint`)
-- [ ] 1.4 Formatting is clean (`npm run format:check`)
-- [ ] 1.5 Tests pass (`npm run test`)
-- [ ] 1.6 Production build succeeds (`npm run build`)
-- [ ] 1.7 Submodule and symlink intact
-- [ ] 1.8 No unintended root-level changes
+- [x] 1.1 Dependencies install cleanly (`npm ci` in `app/`) — 256d79b
+- [x] 1.2 Type checking passes (`npm run typecheck`) — 256d79b
+- [x] 1.3 Linting passes (`npm run lint`) — 256d79b
+- [x] 1.4 Formatting is clean (`npm run format:check`) — 256d79b
+- [x] 1.5 Tests pass (`npm run test`) — 256d79b
+- [x] 1.6 Production build succeeds (`npm run build`) — 256d79b
+- [x] 1.7 Submodule and symlink intact — 256d79b
+- [x] 1.8 No unintended root-level changes — 256d79b
 
 #### Manual
 
-- [ ] 1.9 `npm run dev` serves the page and hot reload works
-- [ ] 1.10 Built output loads when served locally
+- [x] 1.9 `npm run dev` serves the page and hot reload works — 6c9f264
+- [x] 1.10 Built output loads when served locally — 6c9f264
 
 ### Phase 2: Continuous integration and a published URL
 
